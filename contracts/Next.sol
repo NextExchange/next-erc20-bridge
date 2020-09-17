@@ -3,7 +3,7 @@ pragma solidity ^0.6.0;
 import "./StandardToken.sol";
 import "./proxy/Upgradeable.sol";
 
-interface NextAcceptInterFace {
+interface NextInterFace {
     function initialize(
         address payable _ownerAccount
     ) external;
@@ -59,7 +59,7 @@ abstract contract Minter is StandardToken {
  * @title NextToken
  * @dev Contract to create the NextToken
  **/
-contract NextToken is Upgradeable, Minter, NextAcceptInterFace {
+contract NextToken is Upgradeable, Minter, NextInterFace {
     function initialize(
         address payable ownerAccount
     ) public override {

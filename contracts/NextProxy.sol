@@ -5,7 +5,7 @@ import "./Ownable.sol";
 import "./proxy/IRegistry.sol";
 import "./proxy/UpgradeabilityProxy.sol";
 
-interface NextAcceptProxyInterFace {
+interface NextProxyInterFace {
     function initialize(
         address payable _ownerAccount
     ) external;
@@ -15,7 +15,7 @@ interface NextAcceptProxyInterFace {
  * @title Registry
  * @dev This contract works as a registry of versions, it holds the implementations for the registered versions.
  */
-contract NextAcceptRegistery is Ownable, IRegistry {
+contract NextRegistry is Ownable, IRegistry {
     // Mapping of versions to implementations of different functions
     mapping(uint256 => address) internal versions;
 
@@ -67,7 +67,7 @@ contract NextAcceptRegistery is Ownable, IRegistry {
 
         UpgradeabilityProxy proxy = new UpgradeabilityProxy(version);
 
-        NextAcceptProxyInterFace(address(proxy)).initialize(
+        NextProxyInterFace(address(proxy)).initialize(
             _ownerAccount
         );
 
@@ -76,8 +76,6 @@ contract NextAcceptRegistery is Ownable, IRegistry {
         emit ProxyCreated(address(proxy));
         return address(proxy);
     }
-
-
 
     /**
      * @dev Upgrades the implementation to the requested version
