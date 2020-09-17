@@ -114,7 +114,7 @@ contract NextToken is Upgradeable, Minter, NextInterFace {
         _approve(
             sender,
             msg.sender,
-            safeSub(_allowances[sender][msg.sender], amount)
+            _allowances[sender][msg.sender].safeSub(amount)
         );
         return true;
     }

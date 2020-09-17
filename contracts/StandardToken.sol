@@ -89,9 +89,9 @@ abstract contract StandardToken is IERC20, NextStorage, SafeMath, Ownable {
         notZeroValue(amount)
         returns (bool)
     {
-        _totalSupply = safeAdd(_totalSupply, amount);
+        _totalSupply = _totalSupply.safeAdd(amount);
         require(_maxSupply >= _totalSupply, "ERR_MAX_TOKEN_SUPPLY_REACH");
-        _balances[account] = safeAdd(_balances[account], amount);
+        _balances[account] = _balances[account].safeAdd(amount);
         emit Transfer(address(0), account, amount);
         return true;
     }
@@ -115,8 +115,8 @@ abstract contract StandardToken is IERC20, NextStorage, SafeMath, Ownable {
         returns (bool)
     {
         require(_balances[account] >= amount, ERR_NOT_ENOUGH_BALANCE);
-        _balances[account] = safeSub(_balances[account], amount);
-        _totalSupply = safeSub(_totalSupply, amount);
+        _balances[account] = _balances[account].safeSub(amount);
+        _totalSupply = _totalSupply.safeSub(amount);
         emit Transfer(account, address(0), amount);
         return true;
     }
@@ -148,8 +148,8 @@ abstract contract StandardToken is IERC20, NextStorage, SafeMath, Ownable {
     {
         uint256 senderBalance = _balances[sender];
         require(senderBalance >= amount, ERR_NOT_ENOUGH_BALANCE);
-        _balances[sender] = safeSub(senderBalance, amount);
-        _balances[recipient] = safeAdd(_balances[recipient], amount);
+        _balances[sender] = senderBalance.safeSub(amount);
+        _balances[recipient] = _balances[recipient].safeAdd(amount);
         emit Transfer(sender, recipient, amount);
         return true;
     }
@@ -241,7 +241,7 @@ abstract contract StandardToken is IERC20, NextStorage, SafeMath, Ownable {
         _approve(
             msg.sender,
             spender,
-            safeSub(_allowances[spender][msg.sender], subtractedValue)
+            _allowances[spender][msg.sender].safeSub(subtractedValue)
         );
         return true;
     }
