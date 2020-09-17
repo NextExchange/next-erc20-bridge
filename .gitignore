@@ -1,0 +1,10 @@
+build/
+node_modules/
+test/
+logs/
+.solhint.json
+.soliumignore
+.idea
+.soliumrc.json
+.DS_Store
+package-lock.json
