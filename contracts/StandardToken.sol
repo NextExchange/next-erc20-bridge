@@ -6,7 +6,10 @@ import "./IERC20.sol";
 import "./Ownable.sol";
 import "./NextStorage.sol";
 
-abstract contract StandardToken is IERC20, NextStorage, SafeMath, Ownable {
+abstract contract StandardToken is IERC20, NextStorage, Ownable {
+
+    using SafeMath for uint256;
+
     /**
      * @dev Returns the name of the token.
      */
