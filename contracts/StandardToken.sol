@@ -245,8 +245,4 @@ abstract contract StandardToken is IERC20, NextStorage, SafeMath, Ownable {
         );
         return true;
     }
-
-    function burn(uint256 amount) external virtual returns (bool) {
-        return _burn(msg.sender, amount);
-    }
 }

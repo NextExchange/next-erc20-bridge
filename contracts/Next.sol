@@ -26,12 +26,9 @@ abstract contract Minter is StandardToken {
     /**
      * @dev transfer minting ownership
      * first we have owner as minter then we transfer
-     * onwership to stack contract
+     * ownership to stack contract
      */
-    function transferMintingOwnerShip(address _whom)
-        external
-        onlyMinter()
-        returns (bool)
+    function transferMintingOwnerShip(address _whom) external onlyOwner() returns (bool)
     {
         newMintingOwner = _whom;
         return true;
@@ -48,11 +45,19 @@ abstract contract Minter is StandardToken {
     }
 
     /**
-     * @dev mint Token for stacking
+     * @dev mint Token for ERC20 bridge
      */
-    function mintToken(uint256 _amount) external onlyMinter() returns (bool) {
-        return _mint(msg.sender, _amount);
+    function mintToken(address recipient, uint256 amount) external onlyMinter() returns (bool) {
+        return _mint(recipient, amount);
     }
+
+    /**
+     * @dev burn Token for ERC20 bridge
+     */
+    function burnToken(address recipient, uint256 amount) external onlyMinter() returns (bool) {
+        return _burn(recipient, amount);
+    }
+
 }
 
 /**

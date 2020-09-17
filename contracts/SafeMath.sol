@@ -1,7 +1,23 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.6.0;
 
-contract SafeMath {
+library SafeMath {
+    /**
+    * @dev Returns the addition of two unsigned integers, reverting on
+    * overflow.
+    *
+    * Counterpart to Solidity's `+` operator.
+    *
+    * Requirements:
+    *
+    * - Addition cannot overflow.
+    */
+    function safeAdd(uint256 a, uint256 b) internal pure returns (uint256) {
+        uint256 c = a + b;
+        require(c >= a, "SafeMath: addition overflow");
+
+        return c;
+    }
    /**
      * @dev Returns the subtraction of two unsigned integers, reverting on
      * overflow (when the result is negative).
@@ -29,22 +45,7 @@ contract SafeMath {
     function safeSub(uint256 a, uint256 b, string memory error) internal pure returns (uint256) {
         require(b <= a, error);
         uint256 c = a - b;
-        return c;
-    }
 
-    /**
-     * @dev Returns the addition of two unsigned integers, reverting on
-     * overflow.
-     *
-     * Counterpart to Solidity's `+` operator.
-     *
-     * Requirements:
-     *
-     * - Addition cannot overflow.
-     */
-    function safeAdd(uint256 a, uint256 b) internal pure returns (uint256) {
-        uint256 c = a + b;
-        require(c >= a, "SafeMath: addition overflow");
         return c;
     }
 
@@ -108,11 +109,36 @@ contract SafeMath {
         return c;
     }
 
-    function safeExponent(uint256 a,uint256 b) internal pure returns (uint256) {
-        uint256 result;
-        assembly {
-            result:=exp(a, b)
-        }
-        return result;
+    /**
+    * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
+    * Reverts when dividing by zero.
+    *
+    * Counterpart to Solidity's `%` operator. This function uses a `revert`
+    * opcode (which leaves remaining gas untouched) while Solidity uses an
+    * invalid opcode to revert (consuming all remaining gas).
+    *
+    * Requirements:
+    *
+    * - The divisor cannot be zero.
+    */
+    function safeMod(uint256 a, uint256 b) internal pure returns (uint256) {
+        return safeMod(a, b, "SafeMath: modulo by zero");
+    }
+
+    /**
+     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
+     * Reverts with custom message when dividing by zero.
+     *
+     * Counterpart to Solidity's `%` operator. This function uses a `revert`
+     * opcode (which leaves remaining gas untouched) while Solidity uses an
+     * invalid opcode to revert (consuming all remaining gas).
+     *
+     * Requirements:
+     *
+     * - The divisor cannot be zero.
+     */
+    function safeMod(uint256 a, uint256 b, string memory error) internal pure returns (uint256) {
+        require(b != 0, error);
+        return a % b;
     }
 }
