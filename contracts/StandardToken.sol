@@ -216,7 +216,7 @@ abstract contract StandardToken is IERC20, NextStorage, Ownable {
         _approve(
             msg.sender,
             spender,
-            safeAdd(_allowances[spender][msg.sender], addedValue)
+            _allowances[spender][msg.sender].safeAdd(addedValue)
         );
         return true;
     }
