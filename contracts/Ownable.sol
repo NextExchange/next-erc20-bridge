@@ -18,7 +18,6 @@ import "./Constant.sol";
 contract Ownable is Constant {
 
     address payable public owner;
-
     address payable public newOwner;
 
     event OwnershipTransferred(

@@ -2,8 +2,8 @@
 pragma solidity ^0.6.0;
 
 contract NextStorage {
-    mapping(address => uint256) internal _balances;
 
+    mapping(address => uint256) internal _balances;
     mapping(address => mapping(address => uint256)) internal _allowances;
 
     uint256 internal _totalSupply;
@@ -14,21 +14,10 @@ contract NextStorage {
     uint256 internal constant _maxSupply = 30300000 ether;
 
     /**
-     * @dev old contract address for swap
-     **/
-    address public oldTokenAddress;
-
-    /**
-     * @dev stack contract address for stack rewards
+     * @dev minting address for stack rewards
      **/
     address public mintingOwner;
-
     address public newMintingOwner;
-
-    bool isSwapPaused;
-
-    uint256 public teamTokens;
-    uint256 public marketingTokens;
 
     event MintingOwnershipTransferred(
         address indexed previousOwner,

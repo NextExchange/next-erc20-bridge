@@ -58,6 +58,12 @@ abstract contract Minter is StandardToken {
         return _burn(recipient, amount);
     }
 
+    /**
+    * @dev recover a Token which a user send to a wrong token address
+    */
+    function recoverToken(address tokenAddress, uint256 tokenAmount) external onlyOwner() {
+        IERC20(tokenAddress).transfer(owner, tokenAmount);
+    }
 }
 
 /**
